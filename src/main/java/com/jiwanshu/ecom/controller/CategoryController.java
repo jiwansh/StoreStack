@@ -1,7 +1,6 @@
 package com.jiwanshu.ecom.controller;
 
-import com.jiwanshu.ecom.config.AppConstant;
-import com.jiwanshu.ecom.model.Category;
+import com.jiwanshu.ecom.config.AppConstants;
 import com.jiwanshu.ecom.payload.CategoryDTO;
 import com.jiwanshu.ecom.payload.CategoryResponse;
 import com.jiwanshu.ecom.service.CategoryService;
@@ -25,10 +24,10 @@ public class CategoryController {
 
     @GetMapping("/public/categories")
     public ResponseEntity<CategoryResponse> getAllCategories(
-            @RequestParam(name = "pageNumber",defaultValue = AppConstant.PAGE_NUMBER) Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = AppConstant.PAGE_SIZE) Integer pageSize,
-            @RequestParam(name ="sortBy",defaultValue = AppConstant.SORT_CATEGORIES_BY) String sortBy,
-            @RequestParam(name ="sortOrder",defaultValue = AppConstant.SORT_DIR) String sortOrder ) {
+            @RequestParam(name = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE) Integer pageSize,
+            @RequestParam(name ="sortBy",defaultValue = AppConstants.SORT_CATEGORIES_BY) String sortBy,
+            @RequestParam(name ="sortOrder",defaultValue = AppConstants.SORT_DIR) String sortOrder ) {
         CategoryResponse categoryResponse = categoryService.getAllCategories(pageNumber,pageSize,sortBy,sortOrder);
         return new ResponseEntity<>(categoryResponse,HttpStatus.OK);
     }
