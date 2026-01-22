@@ -1,4 +1,4 @@
-# This is NOT a common eCommerce project 
+# This is NOT your frontend cloned eCommerce project 
 ## A Backend-First, Production-Grade Full Stack Platform (In Progress)
 
 **Java | Spring Boot | Spring Security | React | PostgreSQL | AWS**
