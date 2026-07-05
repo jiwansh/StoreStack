@@ -334,37 +334,94 @@ export const getUserCart = () => async (dispatch, getState) => {
 };
 
 
-export const createStripePaymentSecret 
-    = (sendData) => async (dispatch, getState) => {
+// Creates a Stripe PaymentIntent on the backend
+// and stores the returned clientSecret in Redux.
+export const createStripePaymentSecret =
+    (sendData) => async (dispatch, getState) => {
+
         try {
+
+            // Show loading spinner while requesting Stripe
             dispatch({ type: "IS_FETCHING" });
-            const { data } = await api.post("/order/stripe-client-secret", sendData);
-            dispatch({ type: "CLIENT_SECRET", payload: data });
-              localStorage.setItem("client-secret", JSON.stringify(data));
-              dispatch({ type: "IS_SUCCESS" });
+
+            // Send payment details (amount, currency, user info, etc.)
+            // to the Spring Boot backend
+            const { data } = await api.post(
+                "/order/stripe-client-secret",
+                sendData
+            );
+
+            // Save the clientSecret returned by Stripe
+            // so React can initialize the payment form
+            dispatch({
+                type: "CLIENT_SECRET",
+                payload: data,
+            });
+
+            // Store it in localStorage so it survives page refresh
+            localStorage.setItem(
+                "client-secret",
+                JSON.stringify(data)
+            );
+
+            // Stop loading state
+            dispatch({ type: "IS_SUCCESS" });
+
         } catch (error) {
+
             console.log(error);
-            toast.error(error?.response?.data?.message || "Failed to create client secret");
+
+            // Show an error if PaymentIntent creation fails
+            toast.error(
+                error?.response?.data?.message ||
+                "Failed to create client secret"
+            );
         }
 };
 
 
-export const stripePaymentConfirmation 
-    = (sendData, setErrorMesssage, setLoadng, toast) => async (dispatch, getState) => {
+// Confirms the Stripe payment with the backend.
+// If payment is successful, the order is created and checkout data is cleared.
+export const stripePaymentConfirmation =
+    (sendData, setErrorMesssage, setLoadng, toast) => async (dispatch, getState) => {
         try {
-            const response  = await api.post("/order/users/payments/online", sendData);
+            // Send payment details to backend for final order creation
+            const response = await api.post(
+                "/order/users/payments/online",
+                sendData
+            );
+
+            // Backend successfully created the order
             if (response.data) {
+
+                // Remove temporary checkout data
                 localStorage.removeItem("CHECKOUT_ADDRESS");
                 localStorage.removeItem("cartItems");
                 localStorage.removeItem("client-secret");
-                dispatch({ type: "REMOVE_CLIENT_SECRET_ADDRESS"});
-                dispatch({ type: "CLEAR_CART"});
+
+                // Clear payment session from Redux
+                dispatch({
+                    type: "REMOVE_CLIENT_SECRET_ADDRESS"
+                });
+
+                // Empty the user's cart
+                dispatch({
+                    type: "CLEAR_CART"
+                });
+                // Notify user
                 toast.success("Order Accepted");
-              } else {
-                setErrorMesssage("Payment Failed. Please try again.");
-              }
+
+            } else {
+                // Backend couldn't complete the payment
+                setErrorMesssage(
+                    "Payment Failed. Please try again."
+                );
+            }
         } catch (error) {
-            setErrorMesssage("Payment Failed. Please try again.");
+            // Handle unexpected errors (server/network)
+            setErrorMesssage(
+                "Payment Failed. Please try again."
+            );
         }
 };
 

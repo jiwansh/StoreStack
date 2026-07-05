@@ -11,9 +11,8 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
     // Decide what update to perform
     switch (action.type) {
-        // ----------------------------
+        
         // Add or Update Cart Product
-        // ----------------------------
         case "ADD_CART":
 
             // Product received from dispatch()
@@ -32,13 +31,10 @@ export const cartReducer = (state = initialState, action) => {
                 const updatedCart = state.cart.map((item) => {
 
                     if (item.productId === productToAdd.productId) {
-
                         return productToAdd;
 
                     } else {
-
                         return item;
-
                     }
                 });
 
@@ -65,24 +61,18 @@ export const cartReducer = (state = initialState, action) => {
                     cart: newCart,
                 };
             }
-        // ----------------------------
         // Remove Product from Cart
-        // ----------------------------
         case "REMOVE_CART":
             return {
-
                 ...state,
-
                 // Keep every product except deleted one
                 cart: state.cart.filter(
                     (item) =>
                         item.productId !== action.payload.productId
                 ),
             };
-        // ----------------------------
         // Store Latest Cart
         // (Received from Backend)
-        // ----------------------------
         case "GET_USER_CART_PRODUCTS":
             return {
                 ...state,
@@ -93,9 +83,7 @@ export const cartReducer = (state = initialState, action) => {
                 // Backend Cart ID
                 cartId: action.cartId,
             };
-        // ----------------------------
         // Clear Entire Cart
-        // ----------------------------
         case "CLEAR_CART":
             return {
                 // Empty cart
@@ -105,10 +93,7 @@ export const cartReducer = (state = initialState, action) => {
                 // Remove cart id
                 cartId: null,
             };
-
-        // ----------------------------
         // Unknown Action
-        // ----------------------------
         default:
             return state;
     }

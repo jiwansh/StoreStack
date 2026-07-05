@@ -39,25 +39,17 @@ const StripePayment = () => {
         // Create a Payment Intent only once.
         // If clientSecret already exists, don't create another one.
         if (!clientSecret) {
-
             // Data required by backend to create a Stripe Payment Intent
             const sendData = {
-
                 // Stripe expects amount in cents.
                 // Example: $20 -> 2000
                 amount: Number(totalPrice) * 100,
-
                 currency: "usd",
-
                 email: user.email,
-
                 name: user.username,
-
                 // Used later while creating the order
                 address: selectedUserCheckoutAddress,
-
                 description: `Order for ${user.email}`,
-
                 // Optional custom data
                 metadata: {
                     test: "1"
