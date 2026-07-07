@@ -74,25 +74,19 @@ const StripePayment = () => {
             </div>
         );
     }
-
     return (
-
         <>
-
             {/* Render payment form only after
                 backend returns a valid clientSecret */}
 
             {clientSecret && (
 
                 <Elements
-
                     // Stripe instance
                     stripe={stripePromise}
-
                     // Secret received from backend
                     options={{ clientSecret }}
                 >
-
                     {/* Actual credit/debit card form */}
                     <PaymentForm
                         clientSecret={clientSecret}
@@ -100,11 +94,8 @@ const StripePayment = () => {
                     />
 
                 </Elements>
-
             )}
-
         </>
-
     );
 }
 

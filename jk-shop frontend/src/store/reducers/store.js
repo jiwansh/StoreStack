@@ -1,42 +1,45 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { productReducer } from "./ProductReducer";
-import { errorReducer } from "./errorReducer";
-import { cartReducer } from "./cartReducer";
-import { authReducer } from "./authReducer";
-import { paymentMethodReducer } from "./paymentMethodReducer";
-import { adminReducer } from "./adminReducer";
-import { orderReducer } from "./orderReducer";
-import { sellerReducer } from "./sellerReducer";
+export const stripePaymentConfirmation =
+    (sendData, setErrorMesssage, setLoadng, toast) => async (dispatch, getState) => {
+        try {
+            // Send payment details to backend to verify payment
+            // and create the final order
+            const response = await api.post(
+                "/order/users/payments/online",
+                sendData
+            );
+            // Order created successfully
+            if (response.data) {
+                // Remove checkout address from browser storage
+                localStorage.removeItem("CHECKOUT_ADDRESS");
 
-const user = localStorage.getItem("auth")
-    ? JSON.parse(localStorage.getItem("auth"))
-    : null;
+                // Remove cart items from browser storage
+                localStorage.removeItem("cartItems");
 
-const cartItems = localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [];
+                // Remove Stripe client secret
+                localStorage.removeItem("client-secret");
 
-const selectUserCheckoutAddress = localStorage.getItem("CHECKOUT_ADDRESS")
-    ? JSON.parse(localStorage.getItem("CHECKOUT_ADDRESS"))
-    : [];
+                // Clear payment-related data from Redux
+                dispatch({
+                    type: "REMOVE_CLIENT_SECRET_ADDRESS"
+                });
 
-const initialState = {
-    auth: { user: user, selectUserCheckoutAddress },
-    carts: { cart: cartItems },
+                // Empty the cart in Redux
+                dispatch({
+                    type: "CLEAR_CART"
+                });
+
+                // Show success notification
+                toast.success("Order Accepted");
+
+            } else {
+
+                // Show error if backend couldn't create the order
+                setErrorMesssage("Payment Failed. Please try again.");
+            }
+
+        } catch (error) {
+
+            // Handle API/server errors
+            setErrorMesssage("Payment Failed. Please try again.");
+        }
 };
-
-export const store = configureStore({
-    reducer: {
-        products: productReducer,
-        errors: errorReducer,
-        carts: cartReducer,
-        auth: authReducer,
-        payment: paymentMethodReducer,
-        admin: adminReducer,
-        order: orderReducer,
-        seller: sellerReducer,
-    },
-    preloadedState: initialState,
-});
-
-export default store;

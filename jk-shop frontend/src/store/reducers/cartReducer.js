@@ -14,15 +14,12 @@ export const cartReducer = (state = initialState, action) => {
         
         // Add or Update Cart Product
         case "ADD_CART":
-
             // Product received from dispatch()
             const productToAdd = action.payload;
-
             // Check whether product already exists in cart
             const existingProduct = state.cart.find(
                 (item) => item.productId === productToAdd.productId
             );
-
             // Product already exists
             if (existingProduct) {
 
@@ -37,7 +34,6 @@ export const cartReducer = (state = initialState, action) => {
                         return item;
                     }
                 });
-
                 return {
                     ...state,
 
@@ -97,7 +93,6 @@ export const cartReducer = (state = initialState, action) => {
         default:
             return state;
     }
-
     // (Never reached because switch always returns)
     return state;
 }
