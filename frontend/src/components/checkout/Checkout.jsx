@@ -4,7 +4,7 @@ import AddressInfo from './AddressInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAddresses } from '../../store/actions';
 import toast from 'react-hot-toast';
-import Skeleton from '../shared/Skeleton';
+import Skeleton from '../shared/Skelton';
 import ErrorPage from '../shared/ErrorPage';
 import PaymentMethod from './PaymentMethod';
 import OrderSummary from './OrderSummary';

@@ -32,9 +32,8 @@ const PaymentConfirmation = () => {
     const selectedUserCheckoutAddress = localStorage.getItem("CHECKOUT_ADDRESS")
         ? JSON.parse(localStorage.getItem("CHECKOUT_ADDRESS"))
         : [];
-
+        
     useEffect(() => {
-
         // Proceed only if Stripe has returned all required values
         // and the cart still contains products
         if (
@@ -44,7 +43,6 @@ const PaymentConfirmation = () => {
             cart &&
             cart.length > 0
         ) {
-
             // Data sent to backend to create the final order
             const sendData = {
                 addressId: selectedUserCheckoutAddress.addressId,
@@ -53,7 +51,6 @@ const PaymentConfirmation = () => {
                 pgStatus: "succeeded",
                 pgResponseMessage: "Payment successful"
             };
-            
             // Notify backend that payment is complete
             dispatch(
                 stripePaymentConfirmation(
@@ -68,18 +65,14 @@ const PaymentConfirmation = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center">
-
             {/* Show loader while backend confirms the payment */}
             {loading ? (
-
                 <div className="max-w-xl mx-auto">
                     <Skeleton />
                 </div>
 
             ) : (
-
                 <div className="p-8 rounded-lg shadow-lg text-center max-w-md mx-auto border border-gray-200">
-
                     {/* Success icon */}
                     <div className="text-green-500 mb-4 flex justify-center">
                         <FaCheckCircle size={64} />
@@ -89,20 +82,15 @@ const PaymentConfirmation = () => {
                     <h2 className="text-3xl font-bold text-gray-800 mb-2">
                         Payment Successful!
                     </h2>
-
                     {/* Inform the user that the order is being processed */}
                     <p className="text-gray-600 mb-6">
                         Thank you for your purchase! Your payment was successful,
                         and we're processing your order.
                     </p>
-
                     {/* You can display errorMessage here if needed */}
                     {/* {errorMessage && <p>{errorMessage}</p>} */}
-
                 </div>
-
             )}
-
         </div>
     );
 }

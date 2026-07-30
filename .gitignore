@@ -31,3 +31,29 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Maven
+dependency-reduced-pom.xml
+
+# VS Code test folder
+.vscode-test/
+
+# Frontend
+node_modules/
+dist/

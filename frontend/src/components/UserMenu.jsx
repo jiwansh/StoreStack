@@ -69,6 +69,7 @@ const UserMenu = () => {
             </MenuItem>
           </Link>
 
+          {/* Admin/Seller panel - commented out for now
           { (isAdmin || isSeller) && (
           <Link to={isAdmin ? "/admin" : "/admin/orders"}>
             <MenuItem className="flex gap-2" 
@@ -79,6 +80,7 @@ const UserMenu = () => {
                     </span>
             </MenuItem>
           </Link> )}
+          */}
 
             <MenuItem className="flex gap-2" 
                 onClick={logOutHandler}>
