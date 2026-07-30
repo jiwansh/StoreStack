@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-// import HeroBanner from "./HeroBanner";
+import HeroBanner from "./HeroBanner";
 import { useEffect } from "react";
 import { fetchProducts } from "../../store/actions";
 import ProductCard from "../shared/ProductCard";
@@ -17,9 +17,9 @@ const Home = () => {
     }, [dispatch]);
     return (
         <div className="lg:px-14 sm:px-8 px-4">
-            {/* <div className="py-6">
+            <div className="py-6">
                 <HeroBanner />
-            </div> */}
+            </div> 
             
             <div className="py-5">
                 <div className="flex flex-col justify-center items-center space-y-2">

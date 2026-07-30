@@ -57,3 +57,7 @@ dependency-reduced-pom.xml
 # Frontend
 node_modules/
 dist/
+
+# Interview Prep (Ignored)
+INTERVIEW_QUESTIONS.md
+INTERVIEW_ANSWERS.md
