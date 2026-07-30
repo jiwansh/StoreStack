@@ -12,9 +12,9 @@
 
 ##  Executive Overview
 
-**JK-Shop** is a backend-first, enterprise-grade E-Commerce platform engineered with **Java 17**, **Spring Boot 3.5.3**, and **Spring Security 6**. Designed with production architecture in mind, this project demonstrates advanced backend patterns—including stateless **JWT authentication**, dynamic multi-criteria search with **JPA Specifications**, atomic order lifecycle management via **Spring `@Transactional`**, **Stripe Payment Gateway integration**, **Role-Based Access Control (RBAC)**, and clean database schema modeling.
+**E-Shop** is a backend-first, enterprise-grade E-Commerce platform engineered with **Java 17**, **Spring Boot 3.5.3**, and **Spring Security 6**. Designed with production architecture in mind, this project demonstrates advanced backend patterns—including stateless **JWT authentication**, dynamic multi-criteria search with **JPA Specifications**, atomic order lifecycle management via **Spring `@Transactional`**, **Stripe Payment Gateway integration**, **Role-Based Access Control (RBAC)**, and clean database schema modeling.
 
-Rather than focusing solely on basic CRUD operations or front-end visuals, JK-Shop models the **internal architecture and system engineering** required for real-world enterprise web applications.
+Rather than focusing solely on basic CRUD operations or front-end visuals, E-Shop models the **internal architecture and system engineering** required for real-world enterprise web applications.
 
 ---
 
@@ -60,7 +60,7 @@ graph TD
 
 ## Database Design & Entity-Relationship Architecture
 
-The relational schema is normalized and configured via **Spring Data JPA & Hibernate** targeting **MySQL 8.0**.
+The relational schema is normalized and configured via **Spring Data JPA & Hibernate** targeting **MySQL 8.0/PostgreSQL**.
 
 ###  Entity-Relationship (ER) Diagram
 
