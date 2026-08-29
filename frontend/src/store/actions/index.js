@@ -1,9 +1,10 @@
 import api from "../../api/api"
 
-export const fetchProducts = (queryString) => async (dispatch) => {
+export const fetchProducts = (queryString = "") => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        const { data } = await api.get(`/public/products?${queryString}`);
+        const query = queryString ? `?${queryString}` : "";
+        const { data } = await api.get(`/public/products${query}`);
         dispatch({
             type: "FETCH_PRODUCTS",
             payload: data.content,
@@ -442,11 +443,12 @@ export const analyticsAction = () => async (dispatch, getState) => {
         }
 };
 
-export const getOrdersForDashboard = (queryString, isAdmin) => async (dispatch) => {
+export const getOrdersForDashboard = (queryString = "", isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
         const endpoint = isAdmin ? "/admin/orders" : "/seller/orders";
-        const { data } = await api.get(`${endpoint}?${queryString}`);
+        const query = queryString ? `?${queryString}` : "";
+        const { data } = await api.get(`${endpoint}${query}`);
         dispatch({
             type: "GET_ADMIN_ORDERS",
             payload: data.content,
@@ -485,11 +487,12 @@ export const updateOrderStatusFromDashboard =
 };
 
 
-export const dashboardProductsAction = (queryString, isAdmin) => async (dispatch) => {
+export const dashboardProductsAction = (queryString = "", isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
         const endpoint = isAdmin ? "/admin/products" : "/seller/products";
-        const { data } = await api.get(`${endpoint}?${queryString}`);
+        const query = queryString ? `?${queryString}` : "";
+        const { data } = await api.get(`${endpoint}${query}`);
         dispatch({
             type: "FETCH_PRODUCTS",
             payload: data.content,
@@ -584,10 +587,11 @@ export const updateProductImageFromDashboard =
     }
 };
 
-export const getAllCategoriesDashboard = (queryString) => async (dispatch) => {
+export const getAllCategoriesDashboard = (queryString = "") => async (dispatch) => {
   dispatch({ type: "CATEGORY_LOADER" });
   try {
-    const { data } = await api.get(`/public/categories?${queryString}`);
+    const query = queryString ? `?${queryString}` : "";
+    const { data } = await api.get(`/public/categories${query}`);
     dispatch({
       type: "FETCH_CATEGORIES",
       payload: data["content"],
@@ -683,11 +687,12 @@ export const deleteCategoryDashboardAction =
 
 
   export const getAllSellersDashboard =
-  (queryString) => async (dispatch, getState) => {
+  (queryString = "") => async (dispatch, getState) => {
     const { user } = getState().auth;
     try {
       dispatch({ type: "IS_FETCHING" });
-      const { data } = await api.get(`/auth/sellers?${queryString}`);
+      const query = queryString ? `?${queryString}` : "";
+      const { data } = await api.get(`/auth/sellers${query}`);
       dispatch({
         type: "GET_SELLERS",
         payload: data["content"],

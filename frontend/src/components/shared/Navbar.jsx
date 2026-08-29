@@ -77,7 +77,7 @@ const Navbar = () => {
                    </Link> 
                 </li>
 
-                {(user && use.lor.id) ? (
+                {(user && user?.id) ? (
                     <li className="font-medium transition-all duration-150">
                         <UserMenu />
                     </li>
