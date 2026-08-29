@@ -74,6 +74,18 @@ const StripePayment = () => {
             </div>
         );
     }
+
+    if (errorMessage) {
+        return (
+            <div className="max-w-lg mx-auto p-4">
+                <Alert severity="error">
+                    <AlertTitle>Payment Error</AlertTitle>
+                    {errorMessage}
+                </Alert>
+            </div>
+        );
+    }
+
     return (
         <>
             {/* Render payment form only after

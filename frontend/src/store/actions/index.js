@@ -1,4 +1,5 @@
 import api from "../../api/api"
+import toast from "react-hot-toast";
 
 export const fetchProducts = (queryString = "") => async (dispatch) => {
     try {
@@ -371,6 +372,11 @@ export const createStripePaymentSecret =
         } catch (error) {
 
             console.log(error);
+
+            dispatch({
+                type: "IS_ERROR",
+                payload: error?.response?.data?.message || "Failed to create client secret",
+            });
 
             // Show an error if PaymentIntent creation fails
             toast.error(
