@@ -18,7 +18,7 @@ import Navbar from './components/shared/Navbar'
 import { Toaster } from 'react-hot-toast'
 
 // Authentication pages
-import LogIn from './components/auth/LogIn'
+import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 
 // Protects routes based on login/admin status
@@ -73,7 +73,7 @@ function App() {
             element={<PrivateRoute publicPage />}
           >
 
-            <Route path='/login' element={<LogIn />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
 
           </Route>
